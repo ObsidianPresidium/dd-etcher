@@ -1,5 +1,47 @@
 from subprocess import run
 from prettytable import PrettyTable
+from pick import pick
+import os
+import sys
+from getopt import getopt
+
+
+parsed_image_file = ""
+asked_for_help = False
+def parseargs():
+    opts, args = getopt(sys.argv[1:], "hi:", ["--help"])
+    for opt, arg in opts:
+        if opt in ("-h", "--help"):
+            global asked_for_help
+            asked_for_help = True
+            print("Usage: dd-etcher [-i image_file]")
+            print("Etch a disk image to a disk.")
+        elif opt == "-i":
+            global parsed_image_file
+            parsed_image_file = os.path.abspath(arg)
+
+def pick_file():
+    file_picked = False
+    while not file_picked:
+        list = [".."]
+        list = list + sorted(os.listdir("."))
+        enum = 0
+        while enum < len(list):
+            item = list[enum]
+            if not os.path.isdir(item):
+                extension = (os.path.splitext(item))[1]
+                if extension != ".iso":
+                    list.pop(enum)
+                    enum -= 1
+            enum += 1
+        selected_file = pick(list, f"Select image file to be written\n{os.getcwd()}>")
+        if selected_file[0] == "..":
+            os.chdir("..")
+        elif os.path.isdir(os.path.abspath(selected_file[0])):
+            os.chdir(os.path.abspath(selected_file[0]))
+        else:
+            file_picked = True
+    return os.path.abspath(selected_file[0])
 
 
 def get_disks():
