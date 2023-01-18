@@ -1,3 +1,4 @@
+# sudo pip install prettytable file-explorer
 from subprocess import run
 from prettytable import PrettyTable
 from pick import pick
@@ -52,7 +53,7 @@ def get_disks():
     # print(len(disks_raw))
     disks_raw.pop(0)
     disks_raw.pop(len(disks_raw) - 1)
-    # This is non-pythonic. Need to find a different solution
+    # TODO: Find a different solution. This is non-pythonic
     i = 0
     while i < len(disks_raw):
         if "loop" in disks_raw[i]:
@@ -97,6 +98,7 @@ def dd_etcher():
         image_file = parsed_image_file
     print(image_file)
     disks = get_disks()
+    # TODO: Turn this into a pick call
     pretty_print_disks(disks)
     identifier = input("Select a number or enter internal name: ")
     if identifier.isnumeric():
