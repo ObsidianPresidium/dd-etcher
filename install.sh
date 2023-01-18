@@ -1,5 +1,5 @@
 #!/bin/bash
-# TODO: uninstall file-explorer and prettytable once installed
+# TODO: uninstall pick and prettytable once installed
 VALID_ARGS=$(getopt -o hir -l help,install,remove -- "$@")
 PREVIOUS_PWD=$(pwd)
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
