@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO: uninstall file-explorer and prettytable once installed
 VALID_ARGS=$(getopt -o hir -l help,install,remove -- "$@")
 PREVIOUS_PWD=$(pwd)
 SCRIPT_DIR=$(cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd)
@@ -16,6 +17,8 @@ helpscript() {
 installscript() {
   sudo mkdir /bin/dd-etcher-bin
   cd "${SCRIPT_DIR}" || exit
+  sudo apt install -y python3-pip
+  sudo pip3 install prettytable pick
   sudo cp ./main.py /bin/dd-etcher-bin/
   sudo bash -c "echo '#!/bin/bash'>/bin/dd-etcher"
   sudo bash -c "echo 'python3 /bin/dd-etcher-bin/main.py'>>/bin/dd-etcher"
