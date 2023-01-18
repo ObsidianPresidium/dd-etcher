@@ -4,4 +4,8 @@ dd-etcher is a CLI utility which lets you write an image file to a disk, from th
 
 Currently this is a spartan utility, but as the project develops, this utility will become easier to use.
 
+## Usage
+
+    dd-etcher [DISK IMAGE FILE]
+
 Version 0.1
