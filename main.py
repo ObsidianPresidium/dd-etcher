@@ -91,7 +91,11 @@ def etch(inputfile, outputdisk, blocksize):
     print("Done.")
 
 def dd_etcher():
-    image_file = input("Enter path to image file to be written: ")
+    if parsed_image_file == "":
+        image_file = pick_file()
+    else:
+        image_file = parsed_image_file
+    print(image_file)
     disks = get_disks()
     pretty_print_disks(disks)
     identifier = input("Select a number or enter internal name: ")
@@ -111,5 +115,6 @@ def dd_etcher():
         else:
             print(f"Unrecognized option {ask}")
 
-dd_etcher()
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+parseargs()
+if not asked_for_help:
+    dd_etcher()
